@@ -1,12 +1,79 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>后台主页</title>
+    <link rel="stylesheet" href="assets/lib/layui/css/layui.css"/>
+    <link rel="stylesheet" href="assets/css/index.css"/>
+    <link rel="stylesheet" href="assets/fonts/iconfont.css">
 </head>
+
 <body>
-    
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <div class="layui-logo">
+                <img src="assets/images/logo.png">
+            </div>
+            <ul class="layui-nav layui-layout-right">
+                <li class="layui-nav-item layui-hide layui-show-md-inline-block">
+                    <a href="javascript:;">
+                        <img src="assets/images/sample.jpg"
+                            class="layui-nav-img">
+                        个人中心
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="">基本资料</a></dd>
+                        <dd><a href="">安全设置</a></dd>
+                        <dd><a href="">更改密码</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item" lay-header-event="menuRight" lay-unselect>
+                    <a href="javascript:;"><span class="iconfont icon-tuichu"></span>退出</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="layui-side layui-bg-black">
+            <div class="layui-side-scroll">
+                <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+                <ul class="layui-nav layui-nav-tree" lay-shrink="all">
+                    <li class="layui-nav-item"><a href="javascript:;"><span class="iconfont icon-home"></span> 首页</a></li>
+                    <!-- 默认展开 可加上  layui-nav-itemed 类 -->
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;"><span class="iconfont icon-16"></span>文章管理</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:;"><i class="layui-icon layui-icon-app"></i>文章类别</a></dd>
+                            <dd><a href="javascript:;"><i class="layui-icon layui-icon-list"></i>文章列表</a></dd>
+                            <dd><a href="javascript:;"><i class="layui-icon layui-icon-release"></i>发布文章</a></dd>
+                        </dl>
+                    </li>
+                    <li class="layui-nav-item">
+                        <a href="javascript:;"><span class="iconfont icon-user"></span>个人中心</a>
+                        <dl class="layui-nav-child">
+                            <dd><a href="javascript:;"><i class="layui-icon layui-icon-username"></i>基本资料</a></dd>
+                            <dd><a href="javascript:;"><i class="layui-icon layui-icon-picture-fine"></i>更换头像</a></dd>
+                            <dd><a href="javascript:;"><i class="layui-icon layui-icon-password"></i>重置密码</a></dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="layui-body">
+            <!-- 内容主体区域 -->
+            <div style="padding: 15px;">内容主体区域。记得修改 layui.css 和 js 的路径</div>
+        </div>
+
+        <div class="layui-footer">
+            <!-- 底部固定区域 -->
+            @smmcat.cn - <span><a href="http://smmcat.cn">无名喵站</a></span>
+        </div>
+    </div>
+    <!-- 导入 layui 的 js 文件 -->
+    <script src="assets/lib/layui/layui.all.js"></script>
 </body>
+
 </html>

@@ -68,7 +68,7 @@ $(function () {
                     // 获取登录后返回的 token 并进行 本地存储
                     localStorage.setItem('token',res.token);
                     // 跳转到主页
-                    // location.href='index.html';
+                    location.href='index.html';
                 }
             }
         })
