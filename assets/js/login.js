@@ -18,9 +18,13 @@ $(function () {
     // 从 layui 中获取 layer 对象 该对象放置了 一些弹窗提示
     let layer = layui.layer;
 
+    // 存储输入成功的账号
+    let tempUser='';
+
 
     // 通过 form.verify() 添加 自定义校验规则
     form.verify({
+        user:[/^[a-zA-Z0-9_\u4e00-\u9fa5\\s]{2,10}$/,'账号名必须2到10位'],
         pwd: [/^[\S]{6,12}$/, '密码必须6到12位，且不能出现空格'],
         //校验两次密码是否一致 不采用正则表校验
         repwd: function (value) {
@@ -39,12 +43,19 @@ $(function () {
         e.preventDefault();
         // 定义变量 data 用于 临时存储 接收到的 注册表单数据
         let data = { username: $('.reg_box [name=username]').val(), password: $('.reg_box [name=password]').val() };
+        tempUser=data.username;
         // 发起 post 请求 传入表单参数 接收返回值
         $.post('/api/reguser', data, function (res) {
             if (res.status !== 0) {
                 return layer.msg(res.message);
             } else {
+                // 切换到 登录界面
                 $('#link_login').click();
+                // 重置 注册界面 填充
+                $('#from_reg')[0].reset();
+                // 将注册时的账号 粘贴到 登录界面
+                $('#from_login [name=username]').val(tempUser);
+                // 提示反馈
                 layer.msg('注册成功!跳转登录');
             }
         })
@@ -174,5 +185,4 @@ $(function () {
         }
         return temp;
     }
-    console.log(formatFa('12'));
 });

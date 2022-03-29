@@ -12,8 +12,23 @@ $.ajaxPrefilter(function (options) {
     let url = 'http://www.liulongbin.top:3007';
     // 每次请求进行拼接
     options.url = url + options.url;
-    // headers 是请求头
-    options.headers = {
-        Authorization: localStorage.getItem('token') || ''
+    // 若发起 需要权限的接口
+    if (options.url.indexOf('/my/') !== -1) {
+        // headers 请求头 预赋值 统一有权限接口
+        options.headers = {
+            Authorization: localStorage.getItem('token') || ''
+        }
+    }
+    // 无论请求成功还是失败 都会调用该函数
+    options.complete = function (res) {
+        console.log(res);
+        // 在complete 回调函数中 可以使用 res.response.JSON 拿到服务器响应回来的数据
+        if (res.responseJSON.status === 1 && res.responseJSON.message === '身份认证失败！') {
+            console.log('1');
+            // 清空本地存储     
+            localStorage.removeItem('token');
+            // 跳转到登录页
+            location.href = 'login.html';
+        }
     }
 });
