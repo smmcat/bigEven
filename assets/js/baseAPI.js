@@ -12,4 +12,8 @@ $.ajaxPrefilter(function (options) {
     let url = 'http://www.liulongbin.top:3007';
     // 每次请求进行拼接
     options.url = url + options.url;
-}) 
+    // headers 是请求头
+    options.headers = {
+        Authorization: localStorage.getItem('token') || ''
+    }
+});

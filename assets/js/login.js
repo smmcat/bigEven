@@ -60,17 +60,119 @@ $(function () {
             method: 'POST',
             // serialize可以获取表单提交的值，以 ?name=值& 的字符串格式
             data: $(this).serialize(),
-            success:function(res){
-                if(res.status!==0){
+            success: function (res) {
+                if (res.status !== 0) {
                     return layer.msg('登录失败');
-                }else{
+                } else {
                     layer.msg('登录成功');
                     // 获取登录后返回的 token 并进行 本地存储
-                    localStorage.setItem('token',res.token);
+                    localStorage.setItem('token', res.token);
                     // 跳转到主页
-                    location.href='index.html';
+                    location.href = 'index.html';
                 }
             }
         })
     });
+
+    // 阻止拖拽 单击事件 避免不必要麻烦
+    $('.layui-main').on('mousedown click',function(e){
+       e.preventDefault();
+    });
+    $('.FAmenu').on('mousedown click',function(e){
+        e.preventDefault();
+     });
+
+    // 【预防 精神干扰】 禁止 在输入框区域  鼠标按下 键盘按下 的冒泡事件
+    $('.login').on('mousedown keyup',function(e){
+        e.stopPropagation();
+    });
+
+    // 预设旋律 打上FA火
+    let FaMiuse = '12-13-15-11-12-13-15-11-12-13-15-16-12-13-06-11';
+    // 进行乐器分组
+    FaMiuse = FaMiuse.split('-');
+    // 校验
+    console.log(FaMiuse);
+
+    // 起始位置
+    let smmfa = 0;
+    // 定时器
+    let timer = null;
+    let timer_2 = null;
+    // 阀
+    let autoFa = true;
+
+
+    $(document).on('keyup', function (e) {
+        ;
+        if (e.keyCode == 70) {
+            if (autoFa) {
+                // 阀
+                autoFa = false;
+                // 提示信息
+                layer.msg('自动播放中');
+                // 阻止按钮单击事件 扰乱旋律
+                $(document).off('mousedown');
+                // 自动播放 间隔 5s
+                timer_2 = setInterval(() => {
+                    FAplay();
+                }, 500);
+            } else {
+                layer.msg('关闭 FA');
+                // 清除 定时器
+                clearInterval(timer_2);
+                // 初始化 阀
+                autoFa = true;
+                // 重新绑定 单击事件 播放 FA音
+                $(document).on('mousedown', function () {
+                    FAplay();
+                });
+            }
+        }
+    })
+
+    // 播放 FA音
+    $(document).on('mousedown', function () {
+        FAplay();
+    });
+
+    //FA音 Jio本
+    function FAplay() {
+        // 循环曲谱
+        smmfa == FaMiuse.length - 1 ? smmfa = 0 : smmfa = smmfa;
+        // 防抖策略
+        clearTimeout(timer);
+        // 当前音调 显示
+        $('.FAmenu').show();
+        $('.FAmenu').text(formatFa(FaMiuse[smmfa]));
+        // 提示 渐消
+        timer = setTimeout(() => {
+            $('.FAmenu').hide();
+        }, 1000);
+        // 播放
+        $('#voice')[0].src = 'assets/video/' + FaMiuse[smmfa] + '.mp3';
+        // 下一个 音调
+        smmfa++;
+    }
+
+    // 格式化
+    function formatFa(fa) {
+        let temp = 0;
+        switch (fa[0]) {
+            case '1':
+                temp = '+' + fa[1];
+                break;
+            case '0':
+                temp = fa[1];
+                break;
+
+            case 'd':
+                temp = '-' + fa[1];
+                break;
+            default:
+                break;
+        }
+        return temp;
+    }
+    console.log(formatFa('12'));
 });
