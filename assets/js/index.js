@@ -5,7 +5,9 @@ $(function () {
 
     // 调用 getUserInfo 获取用户基本信息
     getUserInfo();
+    // 退出按钮 事件绑定
     $('#btnLoginOut').on('click', function () {
+        // 发起询问 传入三个参数 提示 内容 回调函数
         layer.confirm('确定退出登录吗？', { icon: 3, title: '提示' },
             //若 选中确定 执行 下方函数
             function (index) {
@@ -27,9 +29,9 @@ function getUserInfo() {
             if (res.status !== 0) {
                 return layer.msg('获取用户信息失败');
             } else {
-                console.log(res.data);
                 // 调用 renderAvatar 渲染用户头像
                 renderAvatar(res.data);
+                console.log();
             }
         },
     });
@@ -45,7 +47,8 @@ function renderAvatar(user) {
     if (user.user_pic) {
         // 若有头像 文字头像隐藏
         $('.text-avatar').hide();
-        $('.userinfo img').attr('src', user_pic).show();
+        // console.log(user.user_pic);
+        $('.userinfo img').attr('src', 'http://smmcat.cn/wp-content/uploads/2022/02/livelogo.png').show();
     } else {
         // 提取用户名称 首字
         let fistName = name[0];

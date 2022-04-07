@@ -2,6 +2,13 @@
 /*
     为方便管理 和维护 API接口文档
     我们需要将请求的 url 进行一个单独抽离
+
+    该 $.ajaxPrefilter 包含了 所有的 ajax 请求的数据 并执行 预处理
+    以下内容为 baseAPI.js 修改的内容
+
+    1. 补全每次发起 ajax 请求时拼接链接的根路径
+    2. 若发起需要权限的 /my/ 接口将补全 token
+    3. 防止无 token 直接访问 index 页面 将跳转回登录界面
 */
 
 
@@ -21,10 +28,8 @@ $.ajaxPrefilter(function (options) {
     }
     // 无论请求成功还是失败 都会调用该函数
     options.complete = function (res) {
-        console.log(res);
         // 在complete 回调函数中 可以使用 res.response.JSON 拿到服务器响应回来的数据
         if (res.responseJSON.status === 1 && res.responseJSON.message === '身份认证失败！') {
-            console.log('1');
             // 清空本地存储     
             localStorage.removeItem('token');
             // 跳转到登录页
