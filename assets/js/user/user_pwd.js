@@ -26,7 +26,6 @@ $(function () {
         }
     })
 
-
     // 发起请求
     $('.layui-form').on('submit', function (e) {
         // 阻止默认事件提交

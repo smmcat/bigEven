@@ -9,7 +9,8 @@ html, body {
     padding: 0;
     width: 100%;
     height: 100%;
-    background: url('../images/01.gif')no-repeat center;
+    background: url('../images/01.gif') center;
+    background-repeat: no-repeat;
     background-size: cover;
 }
 
@@ -28,7 +29,8 @@ html, body {
 
 .titleBox {
     height: 60px;
-    background: url('../images/login_title.png')no-repeat center;
+    background: url('../images/login_title.png') center;
+    background-repeat: no-repeat;
     user-select: none;
 }
 
