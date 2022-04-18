@@ -1,0 +1,29 @@
+html,body{
+    margin: 0;
+    padding: 0;
+}
+body{
+    padding: 15px;
+    background-color: #f2f3f5;
+}
+.layui-card-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#form-add,#form-edit{
+    padding-top: 20px;
+    padding-right: 30px;
+}
+#Elementauto{
+    margin-left: 10px;
+}
+.changeTip{
+    color: #66cc;
+    display: inline-block;  
+    transform: translate(10%,22%);
+    vertical-align:middle;
+}
+#btnAddDel{
+    background-color: #FF5722;
+}

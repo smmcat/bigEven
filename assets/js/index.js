@@ -46,7 +46,6 @@ function renderAvatar(user) {
     if (user.user_pic) {
         // 若有头像 文字头像隐藏
         $('.text-avatar').hide();
-        console.log(user.user_pic);
         // 返回的图片 是 base64 字符串 的形式
         // base64 它直接描述了一张图片 而不是文件路径 减少后续的网络请求
         // base64格式的文件 它要比源文件增大30% 不建议将大图转成 base64格式

@@ -41,9 +41,14 @@ $(function () {
                 if (res.status !== 0) {
                     layer.msg('原密码校验失败');
                 } else {
-                    layer.msg('密码修改成功');
+                    layer.msg('密码修改成功，3秒后跳转');
                     // 重置表单
                     $('.layui-form')[0].reset();
+                    localStorage.removeItem('token');
+                    setTimeout(() => {
+                        // 调用父级方法 使页面跳转到登录界面
+                        window.parent.location.href='../login.html';
+                    }, 3000);
                 }
             }
         });

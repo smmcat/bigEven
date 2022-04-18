@@ -14,26 +14,28 @@
 
 // 当每次发起 ajax 请求时 会先调用 $.ajaxPrefilter 函数
 // 该函数可 获得每次 ajax请求时 提供的配置对象
-$.ajaxPrefilter(function (options) {
-    // 项目的请求根路径
-    let url = 'http://www.liulongbin.top:3007';
-    // 每次请求进行拼接
-    options.url = url + options.url;
-    // 若发起 需要权限的接口
-    if (options.url.indexOf('/my/') !== -1) {
-        // headers 请求头 预赋值 统一有权限接口
-        options.headers = {
-            Authorization: localStorage.getItem('token') || ''
+$(function(){
+    $.ajaxPrefilter(function (options) {
+        // 项目的请求根路径
+        let url = 'http://www.liulongbin.top:3007';
+        // 每次请求进行拼接
+        options.url = url + options.url;
+        // 若发起 需要权限的接口
+        if (options.url.indexOf('/my/') !== -1) {
+            // headers 请求头 预赋值 统一有权限接口
+            options.headers = {
+                Authorization: localStorage.getItem('token') || ''
+            }
         }
-    }
-    // 无论请求成功还是失败 都会调用该函数
-    options.complete = function (res) {
-        // 在complete 回调函数中 可以使用 res.response.JSON 拿到服务器响应回来的数据
-        if (res.responseJSON.status === 1 && res.responseJSON.message === '身份认证失败！') {
-            // 清空本地存储     
-            localStorage.removeItem('token');
-            // 跳转到登录页
-            location.href = 'login.html';
+        // 无论请求成功还是失败 都会调用该函数
+        options.complete = function (res) {
+            // 在complete 回调函数中 可以使用 res.response.JSON 拿到服务器响应回来的数据
+            if (res.responseJSON.status === 1 && res.responseJSON.message === '身份认证失败！') {
+                // 清空本地存储     
+                localStorage.removeItem('token');
+                // 跳转到登录页
+                location.href = 'login.html';
+            }
         }
-    }
-});
+    });
+})
