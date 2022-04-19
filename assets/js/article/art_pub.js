@@ -5,16 +5,22 @@ $(function () {
     // 表单操作
     let form = layui.form;
 
-    // 检查父级是否存在 编辑值
-    let editId = window.parent.$('body').data('editList') || '';
+    // 获取上个页面传送的 '?' 后面的字符串参数 若无 则 赋值空
+    let tempId = Number((location.search).slice(1)) || '';
 
     // 初始化富文本
     initEditor();
     // 初始化分类
     initCateData();
 
+    /*
+    判断是否为编辑或发布状态: 若 tempId 有值 
+    说明是有参数从 文章管理 的编辑项 传递过来的
+    若 无 tempId 则为用户 点击 发布文章 所响应的
+    因为只有 编辑按钮 会携带参数
+    */ 
     // 判断发起的是否为 编辑
-    if (editId) {
+    if (tempId) {
         $('#biaoti').html('编辑文章');
         // 为界面填充内容
         getEditList();
@@ -115,14 +121,14 @@ $(function () {
                 // 发起 ajax请求 传入 FormData数据
                 console.log(blob);
                 // 判断是否为发布 或 编辑
-                if (!editId) {
+                if (!tempId) {
                     // 发布文章
                     publishArticle(fd);
                 } else {
-                    // 引用对象 Id 存在 fd 中
-                    fd.append('Id', editId);
+                    // 引用对象 Id 存在 fd 中   
+                    fd.append('Id', tempId);
                     // 编辑文章
-                    editLishArticle(fd);
+                    editArticle(fd);
                 }
             });
     })
@@ -156,7 +162,7 @@ $(function () {
     function getEditList() {
         $.ajax({
             method: 'GET',
-            url: '/my/article/' + editId,
+            url: '/my/article/' + tempId,
             success: function (res) {
                 if (res.status !== 0) {
                     return layer.msg('获取编辑内容信息失败');
@@ -167,7 +173,7 @@ $(function () {
                     $('#form-pub [name=title]').val(temp.title);
                     $('#form-pub [name=content]').val(temp.content);
                     // 取得图片参数 为 接口地址 + url 
-                    let editNewImg = 'http://www.liulongbin.top:3007'+temp.cover_img;
+                    let editNewImg = 'http://www.liulongbin.top:3007' + temp.cover_img;
                     // 将 返回的图片 替换掉 默认图片
                     $image
                         .cropper('destroy')
@@ -179,7 +185,7 @@ $(function () {
     }
 
     // 编辑文章
-    function editLishArticle(fd) {
+    function editArticle(fd) {
         $.ajax({
             method: 'POST',
             url: '/my/article/edit',
@@ -208,6 +214,6 @@ $(function () {
 })
 
 // 在该页面发生跳转时 清除父级残留 对象属性
-document.addEventListener('visibilitychange', function () {
-    window.parent.$('body').data('editList', '');
-});
+// document.addEventListener('visibilitychange', function () {
+//     window.parent.$('body').data('editList', '');
+// });

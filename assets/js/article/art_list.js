@@ -165,10 +165,10 @@ $(function () {
 
     // 发起编辑文章
     $('#putList').on('click', '.layui-btn-edit',function(){
+        // 获取到按钮下的 文章id
         let editId=$(this).attr('data-id');
-        window.parent.$('body').data('editList',editId);
-        // 跳转到编辑列表页面
-        location.href = '../article/art_pub.html'
+        // 跳转到发布文章 页面 并携带 文章id 参数
+        location.href = '../article/art_pub.html?'+editId;
     });
     
 });
