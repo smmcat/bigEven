@@ -15,6 +15,7 @@ $(function () {
 
     // 判断发起的是否为 编辑
     if (editId) {
+        $('#biaoti').html('编辑文章');
         // 为界面填充内容
         getEditList();
     }
