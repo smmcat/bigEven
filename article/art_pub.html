@@ -30,41 +30,43 @@
                         <select name="cate_id" lay-verify="required" id="getCate">
                         </select>
                     </div>
-                    <!-- 富文本编辑器 -->
-                    <div class="layui-form-item">
-                        <!-- 左侧的label -->
-                        <label class="layui-from-label">文章内容</label>
-                        <!-- 为富文本编辑器外部容器设置高度 -->
-                        <div class="layui-input-block" style="height: 400px;">
-                            <textarea name="content"></textarea>
+                </div>
+                <!-- 富文本编辑器 -->
+                <div class="layui-form-item">
+                    <!-- 左侧的label -->
+                    <label class="layui-form-label">文章内容</label>
+                    <!-- 为富文本编辑器外部容器设置高度 -->
+                    <div class="layui-input-block" style="height: 400px;">
+                        <textarea name="content"></textarea>
+                    </div>
+                </div>
+                <!-- 封面裁剪区域 -->
+                <div class="layui-form-item">
+                    <!-- 左侧的 label -->
+                    <label class="layui-form-label">文章封面</label>
+                    <!-- 选择封面区域 -->
+                    <div class="layui-input-block cover-box">
+                        <!-- 左侧裁剪区域 -->
+                        <div class="cover-left">
+                            <img id="image" src="../assets/images/sample2.jpg" alt="" />
+                        </div>
+                        <!-- 右侧预览区域和选择封面区域 -->
+                        <div class="cover-right">
+                            <!-- 预览的区域 -->
+                            <div class="img-preview"></div>
+                            <!-- 选择封面按钮 -->
+                            <button type="button" class="layui-btn layui-btn-danger" id="btnChooseImage">选择封面</button>
+                            <input type="file" id="coverFile" style="display: none;"
+                                accept="image/png,image/jpeg,image/gif" />
                         </div>
                     </div>
-                    <!-- 封面裁剪区域 -->
-                    <div class="layui-form-item">
-                        <!-- 左侧的 label -->
-                        <label class="layui-form-label">文章封面</label>
-                        <!-- 选择封面区域 -->
-                        <div class="layui-input-block cover-box">
-                            <!-- 左侧裁剪区域 -->
-                            <div class="cover-left">
-                                <img id="image" src="../assets/images/sample2.jpg" alt="" />
-                            </div>
-                            <!-- 右侧预览区域和选择封面区域 -->
-                            <div class="cover-right">
-                                <!-- 预览的区域 -->
-                                <div class="img-preview"></div>
-                                <!-- 选择封面按钮 -->
-                                <button type="button" class="layui-btn layui-btn-danger" id="btnChooseImage">选择封面</button>
-                                <input type="file" id="coverFile" style="display: none;" accept="image/png,image/jpeg,image/gif"/>
-                            </div>
-                        </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn" lay-submit>发布</button>
+                        <button class="layui-btn layui-btn-primary" lay-submit id="btnDraft">存为草稿</button>
                     </div>
-                    <div class="layui-form-item">
-                        <div class="layui-input-block">
-                            <button class="layui-btn" lay-submit>发布</button>
-                            <button class="layui-btn layui-btn-primary" lay-submit id="btnDraft">存为草稿</button>
-                        </div>
-                    </div>
+                </div>
             </form>
         </div>
     </div>
