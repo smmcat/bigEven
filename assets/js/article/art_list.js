@@ -112,12 +112,13 @@ $(function () {
             layout: ['count', 'limit', 'prev', 'page', 'next', 'skip'],
             // 指定分页数量
             limits: [2, 3, 4, 5],
-            // 分页发生切换时 或 初始化 时 都会触发 jump回调 执行方法
-            // 因此不能直接调用渲染页面函数 会不断发生 jump回调
+            /*
+            分页发生切换时 或 初始化 时 都会触发 jump回调 执行方法
+            因此不能直接调用渲染页面函数 会不断发生 jump回调
+            可以通过 first 值来判断是通过哪种方式触发的 jump回调
+            */
             jump: function (obj, flist) {
-                // 可以通过 first 值来判断是通过哪种方式触发的 jump回调
-                console.log(flist);
-                // 条目变化 直接赋值
+                // 发起请求每行条目 = 模板分页设置的每行条目
                 q.pagesize = this.limit;
                 // curr 返回当前的页码值 赋值与 q.pagenum 实现同步请求
                 q.pagenum = obj.curr;
@@ -164,11 +165,11 @@ $(function () {
     })
 
     // 发起编辑文章
-    $('#putList').on('click', '.layui-btn-edit',function(){
+    $('#putList').on('click', '.layui-btn-edit', function () {
         // 获取到按钮下的 文章id
-        let editId=$(this).attr('data-id');
+        let editId = $(this).attr('data-id');
         // 跳转到发布文章 页面 并携带 文章id 参数
-        location.href = '../article/art_pub.html?'+editId;
+        location.href = '../article/art_pub.html?' + editId;
     });
-    
+
 });

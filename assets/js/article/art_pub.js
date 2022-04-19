@@ -18,7 +18,7 @@ $(function () {
     说明是有参数从 文章管理 的编辑项 传递过来的
     若 无 tempId 则为用户 点击 发布文章 所响应的
     因为只有 编辑按钮 会携带参数
-    */ 
+    */
     // 判断发起的是否为 编辑
     if (tempId) {
         $('#biaoti').html('编辑文章');
@@ -118,16 +118,14 @@ $(function () {
             .toBlob(function (blob) {
                 // 将 Canvas画布 上的内容 转换为文件对象 存在 fd 中
                 fd.append('cover_img', blob);
-                // 发起 ajax请求 传入 FormData数据
-                console.log(blob);
                 // 判断是否为发布 或 编辑
                 if (!tempId) {
-                    // 发布文章
+                    // 发布文章 传入 FormData数据
                     publishArticle(fd);
                 } else {
                     // 引用对象 Id 存在 fd 中   
                     fd.append('Id', tempId);
-                    // 编辑文章
+                    // 编辑文章 传入 FormData数据
                     editArticle(fd);
                 }
             });
@@ -169,9 +167,15 @@ $(function () {
                 } else {
                     // 将返回的数据存在临时变量中
                     let temp = res.data;
-                    // 将对应的目标依次赋值
-                    $('#form-pub [name=title]').val(temp.title);
-                    $('#form-pub [name=content]').val(temp.content);
+                    // 建立 编辑文章 有效的表单成员
+                    let cata = {
+                        'title':temp.title,
+                        // 若该 id 下的分类已删除 返回 默认序号
+                        'cate_id': temp.cate_id || 1,
+                        'content':temp.content
+                    }
+                    // 将对应的表单成员 使用form.val 依次赋值
+                    form.val('form-pub', cata);
                     // 取得图片参数 为 接口地址 + url 
                     let editNewImg = 'http://www.liulongbin.top:3007' + temp.cover_img;
                     // 将 返回的图片 替换掉 默认图片
