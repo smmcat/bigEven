@@ -62,9 +62,7 @@ $(function () {
     $('body').on('submit', '#form-add', function (e) {
         // 阻止默认行为
         e.preventDefault();
-        console.log($(this));
         let data = $(this).serialize();
-        console.log(data);
         $.ajax({
             method: 'POST',
             url: '/my/article/addcates',

@@ -6,7 +6,7 @@ $(function () {
     let form = layui.form;
 
     // 获取上个页面传送的 '?' 后面的字符串参数 若无 则 赋值空
-    let tempId = Number((location.search).slice(1)) || '';
+    let tempId = location.search.slice(1) || '';
 
     // 初始化富文本
     initEditor();
@@ -169,11 +169,12 @@ $(function () {
                     let temp = res.data;
                     // 建立 编辑文章 有效的表单成员
                     let cata = {
-                        'title':temp.title,
+                        'title': temp.title,
                         // 若该 id 下的分类已删除 返回 默认序号
                         'cate_id': temp.cate_id || 1,
-                        'content':temp.content
+                        'content': temp.content
                     }
+                    console.log(res.data.cate_id);
                     // 将对应的表单成员 使用form.val 依次赋值
                     form.val('form-pub', cata);
                     // 取得图片参数 为 接口地址 + url 
